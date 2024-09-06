@@ -2,7 +2,7 @@ api = "0.4"
 
 [buildpack]
 id = "digitalocean/apt"
-version = "0.0.1"
+version = "0.0.2"
 name = "apt Packages Buildpack"
 homepage = "https://github.com/digitalocean/buildpack-apt"
 description = "Installs apt packages for further builds and runtime"
