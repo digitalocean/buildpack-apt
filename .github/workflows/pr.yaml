@@ -34,7 +34,7 @@ jobs:
       run: dev/test -v
 
     - name: E2E Test
-      run: docker run -v ${PWD}/bin:/buildpack-apt -v ${PWD}/e2e/e2e.sh:/e2e/e2e.sh ubuntu:latest /e2e/e2e.sh
+      run: docker run -v ${PWD}/bin:/buildpack-apt -v ${PWD}/e2e/e2e.sh:/e2e/e2e.sh ubuntu:22.04 /e2e/e2e.sh
 
     - name: Setup package variables
       run: |

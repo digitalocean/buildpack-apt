@@ -10,4 +10,4 @@ cd ..
 
 log::info "=> Running E2E tests"
 
-docker run -v ${PWD}/bin:/buildpack-apt -v ${PWD}/e2e/e2e.sh:/e2e/e2e.sh ubuntu:latest /e2e/e2e.sh
+docker run -v ${PWD}/bin:/buildpack-apt -v ${PWD}/e2e/e2e.sh:/e2e/e2e.sh ubuntu:22.04 /e2e/e2e.sh
