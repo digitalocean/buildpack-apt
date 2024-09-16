@@ -53,7 +53,7 @@ assert_file_exists $buildsh
 layer_dir=/e2e/layers
 mkdir /workspace
 cd /workspace || exit 1
-echo tree > Aptfile
+echo -n "tree" > Aptfile
 assert_file_content "Aptfile" "tree"
 
 #################

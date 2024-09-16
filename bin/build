@@ -67,7 +67,8 @@ else
 	# Ignore stderr from apt-get update containing: rm: cannot remove '/var/cache/apt/archives/partial/*.deb': Permission denied
 	apt-get "${APT_OPTIONS[@]}" update 2> >(grep -v "rm: cannot remove")
 
-	while read -r line; do
+	# This will read the last line of the Aptfile even with no new-line at the end
+	while read -r line || [ -n "$line" ]; do
 		if [[ $line != "#"* ]] && [[ $line != ":repo:"* ]]; then
 			PACKAGE=$line
 			if [[ $PACKAGE == *deb ]]; then
