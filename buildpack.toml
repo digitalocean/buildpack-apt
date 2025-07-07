@@ -1,8 +1,8 @@
-api = "0.4"
+api = "0.8"
 
 [buildpack]
 id = "digitalocean/apt"
-version = "0.0.3"
+version = "0.1.0"
 name = "apt Packages Buildpack"
 homepage = "https://github.com/digitalocean/buildpack-apt"
 description = "Installs apt packages for further builds and runtime"
@@ -10,9 +10,6 @@ keywords = ["apt", "packages", "ubuntu"]
 
 [[buildpack.licenses]]
 type = "MIT"
-
-[[stacks]]
-id = "heroku-20"
 
 [[stacks]]
 id = "heroku-22"
