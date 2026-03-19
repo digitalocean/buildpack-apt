@@ -32,6 +32,7 @@ APT_CACHE_DIR="$apt_layer/cache"
 APT_STATE_DIR="$apt_layer/state"
 APT_SOURCELIST_DIR="$apt_layer/sources" # place custom sources.list here
 APT_SOURCES="$APT_SOURCELIST_DIR/sources.list"
+APT_MIRROR_URL="https://mirrors.digitalocean.com"
 APT_VERSION=$(apt-get -v | awk 'NR == 1{ print $2 }')
 
 case "$APT_VERSION" in
@@ -50,6 +51,18 @@ else
 	mkdir -p "$APT_SOURCELIST_DIR"
 	cp -f Aptfile "$apt_layer"/Aptfile
 	cat "/etc/apt/sources.list" >"$APT_SOURCES"
+	if [[ ! -v BUILDPACK_APT_DISABLE_MIRROR ]]; then
+		log::info "=> Configuring apt mirror: $APT_MIRROR_URL"
+		sed -E \
+			-e "s|https?://([a-zA-Z0-9.-]+\\.)?archive\\.ubuntu\\.com/ubuntu|$APT_MIRROR_URL/ubuntu|g" \
+			-e "s|https?://security\\.ubuntu\\.com/ubuntu|$APT_MIRROR_URL/ubuntu|g" \
+			-e "s|https?://([a-zA-Z0-9.-]+\\.)?debian\\.org/debian|$APT_MIRROR_URL/debian|g" \
+			-e "s|https?://security\\.debian\\.org/debian-security|$APT_MIRROR_URL/debian-security|g" \
+			"$APT_SOURCES" >"$APT_SOURCES.tmp"
+		mv "$APT_SOURCES.tmp" "$APT_SOURCES"
+	else
+		log::info "=> Skipping apt mirror override (BUILDPACK_APT_DISABLE_MIRROR set)"
+	fi
 	if grep -q -e "^:repo:" Aptfile; then
 		log::info "=> Adding custom repositories"
 		grep -s -e "^:repo:" Aptfile | sed 's/^:repo:\(.*\)\s*$/\1/g' >>"$APT_SOURCES"
