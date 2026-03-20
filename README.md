@@ -14,6 +14,11 @@ Include a list of `apt` package names to be installed in a file named `Aptfile`;
 #### Debugging
 Include a environment variable with any value and a name of `BUILDPACK_APT_DEBUG` to enable bash debugging verboseness.
 
+#### Apt Mirror
+By default, the buildpack rewrites default Ubuntu/Debian apt sources to use the DigitalOcean mirror: `https://mirrors.digitalocean.com/`.
+
+Set `BUILDPACK_APT_DISABLE_MIRROR` (to any value) to disable this behavior and keep the stack's original apt sources.
+
 ## Example
 The buildpack automatically downloads and installs the packages when you run a build:
 
